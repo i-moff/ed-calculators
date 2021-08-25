@@ -1,0 +1,57 @@
+<html>
+<html>
+<head>
+  <title>Калькулятори</title>
+</head>
+<body>
+  <div class="input-data-block">
+  <h1>Кешбек калькулятор</h1>
+  <div>
+    <label for="price-meter">Ціна за метр: </label>
+    <input type="number" id="price-meter" name="price-meter" />
+    </div>
+  <br/>
+  <div>
+    <label for="total-meters">Загальна кількість метрів: </label>
+    <input type="number" id="total-meters" name="total-meters" />
+  </div>
+  <br/>
+  <div>
+    <label for="first-payment">Перший внесок: </label>
+    <input type="number" id="first-payment" name="first-payment" />
+  </div>
+  <br/>
+  <div>
+    <label for="cashback">Кешбек: </label>
+    <input type="number" id="cashback" name="cashback" />
+  </div>
+  <br/>
+  <button onclick="calculate()">Розрахувати</button>
+</div>
+<br/>
+<div class="result-block">
+  <div>Кількість оплачених метрів:</div><div id="result-paid-meters"></div>
+  <div>Середня вартість за метр(враховуючи кешбек):</div><div id="result-average-price-meter"></div>
+  <div>Загальна вартість квартири(враховуючи кешбек):</div><div id="result-total"></div>
+</div>
+  <script>
+    function calculate(){
+      const priceForMeter = document.getElementById("price-meter").value;
+      const totalMeters = document.getElementById("total-meters").value;
+      const firstPayment = document.getElementById("first-payment").value;
+      const cashback = document.getElementById("cashback").value;
+
+
+      const paidMeters = firstPayment/(priceForMeter-cashback);
+      const notPaidMeters = totalMeters - paidMeters;
+      const totalSum = paidMeters*(priceForMeter-cashback)+notPaidMeters*priceForMeter;
+      const averagePricePerMeter = totalSum/totalMeters;
+
+      document.getElementById("result-paid-meters").innerHTML = parseFloat(paidMeters).toFixed(2);
+      document.getElementById("result-average-price-meter").innerHTML = parseFloat(averagePricePerMeter).toFixed(2);
+      document.getElementById("result-total").innerHTML = parseFloat(totalSum).toFixed(2);
+
+    }
+  </script>
+</body>
+</html>
